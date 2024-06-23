@@ -27,7 +27,7 @@ const Map = () => {
                             params: {
                                 waypoints: `${origin.lat},${origin.lon}|${destination.lat},${destination.lon}`,
                                 mode: transitMode,
-                                apiKey: API_KEY,
+                                apiKey: import.meta.env.VITE_API_KEY,
                             },
                         }
                     );
