@@ -32,7 +32,7 @@ const Autocomplete = ({ placeholder, reducer }) => {
                     {
                         params: {
                             text: value,
-                            apiKey: import.meta.env.VITE_API_KEY,
+                            apiKey: 'd7d862e3a8b446009c7d46ace01d67f0',
                         }
                     }
                 );
