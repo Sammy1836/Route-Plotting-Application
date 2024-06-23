@@ -1,8 +1,16 @@
-# React + Vite
+# Route Plotting Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple one-page web app using React.js that allows users to input an origin and destination, and plot the route on a map with distance calculations. This project uses `React Leaflet` for maps and Geoapify for route calculation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Location Input**: Auto-suggest location inputs for origin and destination.
+- **Route Calculation**: Plot the route on a map and calculate the distance and ETA using Geoapify API.
+- **Select Transit Option**
+
+## Technologies Used
+
+- React.js
+- React Leaflet
+- Geoapify API (for route calculation & places autocomplete)
+- Axios (for API requests)
