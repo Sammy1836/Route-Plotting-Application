@@ -1,0 +1,216 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F4F8FA;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  width: 100%;
+  height: 10vh;
+  padding-left: 30px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.header img {
+  height: 8vh;
+  object-fit: cover;
+}
+
+.formOuter {
+  margin-top: 20px;
+}
+
+.formBody {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh 4vw;
+  flex-direction: row-reverse;
+}
+
+.formInner {
+  width: 50%;
+  padding: 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.formInner input {
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.formLeft {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.transitOption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+}
+
+.transitMode {
+  background-color: white;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.transitMode:hover,
+.transitMode.active {
+  background-color: black;
+  color: white;
+  box-shadow: 2px 2px 5px #ccc;
+}
+
+.iconTooltip {
+  position: absolute;
+  visibility: hidden;
+  z-index: 1;
+  background-color: black;
+  padding: 5px;
+}
+
+.transitMode:hover .iconTooltip {
+  visibility: visible;
+}
+
+.formRight {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.formDown {
+  border: 1px solid #E9EEF2;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.formDownDistance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px 5px 0 0;
+
+}
+
+.formDownDescription {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+  background-color: #F4F8FA;
+}
+
+.suggestionsTab {
+  position: absolute;
+  width: 21vw;
+  height: auto;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: -20px;
+  max-height: 200px;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.suggestionPlace {
+  display: flex;
+  align-items: center;
+}
+
+.mapComponent {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapOuter {
+  width: 100%;
+}
+
+.leaflet-container {
+  width: 100% !important;
+  height: 65vh !important;
+}
+
+@media (max-width: 1280px) {
+  .formHeading h6 {
+    font-size: 1rem;
+  }
+
+  .formBody {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .mapComponent {
+    height: 50vh;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .formInner {
+    width: 100%;
+  }
+
+  .formUp {
+    flex-direction: column;
+  }
+
+  .suggestionsTab {
+    width: 60vw;
+  }
+
+  .formRight {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mapComponent {
+    width: 100%;
+  }
+
+  .leaflet-container {
+    height: 50vh !important;
+  }
+}
