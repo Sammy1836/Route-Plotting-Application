@@ -4,6 +4,10 @@ import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-
 import 'leaflet/dist/leaflet.css';
 import { useDispatch, useSelector } from "react-redux";
 import { updateInitiated, updateIsInput, updateRoute } from "../redux/locationSlice";
+import { LocationOffSharp, LocationOn } from "@mui/icons-material";
+import { Icon } from "leaflet";
+import iconOrigin from '../assets/origin-icon.png';
+import iconD from '../assets/location-D.png';
 
 const Map = () => {
     const dispatch = useDispatch();
@@ -16,6 +20,20 @@ const Map = () => {
 
     const [center, setCenter] = useState([28.6138954, 77.2090057]);
     const [route, setRoute] = useState(null);
+
+    const originIcon = new Icon({
+        iconUrl: iconOrigin,
+        iconSize: [38, 38],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    })
+
+    const destinationIcon = new Icon({
+        iconUrl: iconD,
+        iconSize: [38, 38],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    })
 
     useEffect(() => {
         if (initiated && origin.formatted && destination.formatted) {
@@ -90,10 +108,10 @@ const Map = () => {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     {route && <Polyline positions={route.map(coord => [coord[1], coord[0]])} color="blue" />}
-                    {(origin.formatted != '') && <Marker position={[origin.lat, origin.lon]}>
+                    {(origin.formatted != '') && <Marker position={[origin.lat, origin.lon]} icon={originIcon}>
                         <Popup>Origin: {origin.formatted}</Popup>
                     </Marker>}
-                    {(destination.formatted != '') && <Marker position={[destination.lat, destination.lon]}>
+                    {(destination.formatted != '') && <Marker position={[destination.lat, destination.lon]} icon={destinationIcon}>
                         <Popup>Destination: {destination.formatted}</Popup>
                     </Marker>}
                 </MapContainer>
