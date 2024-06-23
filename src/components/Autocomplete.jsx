@@ -32,7 +32,7 @@ const Autocomplete = ({ placeholder, reducer }) => {
                     {
                         params: {
                             text: value,
-                            apiKey: API_KEY,
+                            apiKey: import.meta.env.API_KEY,
                         }
                     }
                 );
