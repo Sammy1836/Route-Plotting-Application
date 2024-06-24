@@ -16,6 +16,7 @@ const NewMap = () => {
 
   const addWaypoint = () => {
     setWaypoints([...waypoints, '']);
+    console.log(waypoints);
   };
 
   const removeWaypoint = (index) => {

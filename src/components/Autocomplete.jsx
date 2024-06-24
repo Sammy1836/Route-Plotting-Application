@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { updateIsInput } from '../redux/locationSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateIsInput, updateWaypoints } from '../redux/locationSlice';
 
-const Autocomplete = ({ placeholder, reducer }) => {
+const Autocomplete = ({ placeholder, reducer, index }) => {
     const dispatch = useDispatch();
+
+    const waypoints = useSelector((state) => state.location.waypoints);
+    const stopPoints = useSelector(state => state.location.stopPoints);
 
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -48,7 +51,15 @@ const Autocomplete = ({ placeholder, reducer }) => {
 
     const handleSelect = (suggestion) => {
         setQuery(suggestion.properties.formatted);
-        dispatch(reducer(suggestion.properties));
+        {
+            (reducer != updateWaypoints)
+                ? dispatch(reducer(suggestion.properties))
+                : dispatch(reducer([suggestion.properties, index]))
+        };
+
+        console.log(suggestion.properties);
+        console.log(waypoints);
+
         dispatch(updateIsInput(true));
         setSuggestions([]);
     };

@@ -11,6 +11,7 @@ const initialState = {
         lon: 0,
         formatted: ''
     },
+    waypoints: [],
     transitMode: 'drive',
     distance: null,
     eta: null,
@@ -32,6 +33,30 @@ export const locationSlice = createSlice({
             state.destination.lon = action.payload.lon;
             state.destination.formatted = action.payload.formatted;
         },
+        updateWaypoints: (state, action) => {
+            {
+                if (action.payload.length > 0) {
+                    const lat = action.payload[0].lat;
+                    const lon = action.payload[0].lon;
+                    const formatted = action.payload[0].formatted;
+                    const index = action.payload[1];
+
+                    state.waypoints[index] =
+                    {
+                        lat: lat,
+                        lon: lon,
+                        formatted: formatted
+                    };
+
+                }
+                else
+                    state.waypoints = [...state.waypoints, '']
+            }
+            console.log(state.waypoints);
+        },
+        deleteWaypoints: (state, action) => {
+            state.waypoints = state.waypoints.filter((_, index) => index !== action.payload)
+        },
         updateTransitMode: (state, action) => {
             state.transitMode = action.payload;
         },
@@ -48,6 +73,6 @@ export const locationSlice = createSlice({
     }
 })
 
-export const { updateOrigin, updateDestination, updateTransitMode, updateRoute, updateInitiated, updateIsInput } = locationSlice.actions;
+export const { updateOrigin, updateDestination, updateWaypoints, deleteWaypoints, updateTransitMode, updateRoute, updateInitiated, updateIsInput } = locationSlice.actions;
 
 export default locationSlice.reducer;

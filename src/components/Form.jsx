@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import Map from "./Map";
 import Autocomplete from "./Autocomplete";
-import { updateDestination, updateInitiated, updateOrigin, updateTransitMode } from "../redux/locationSlice";
+import { deleteWaypoints, updateDestination, updateInitiated, updateOrigin, updateTransitMode, updateWaypoints } from "../redux/locationSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionsBikeOutlined, DirectionsWalkOutlined, DriveEtaOutlined, TwoWheelerOutlined } from "@mui/icons-material";
@@ -12,8 +12,11 @@ const apikey = import.meta.env.VITE_API_KEY;
 const Form = () => {
     const dispatch = useDispatch();
 
+    const [addStop, setAddStop] = useState(false);
+
     const origin = useSelector((state) => state.location.origin);
     const destination = useSelector((state) => state.location.destination);
+    const waypoints = useSelector((state) => state.location.waypoints);
     const transitMode = useSelector((state) => state.location.transitMode);
     const distance = useSelector((state) => state.location.distance);
     const eta = useSelector((state) => state.location.eta);
@@ -34,7 +37,6 @@ const Form = () => {
         {
             mode: 'walk',
             icon: <DirectionsWalkOutlined />,
-            errormessage: 'Enter locations under 100kms apart to walk.'
         },
         {
             mode: 'motorcycle',
@@ -43,9 +45,18 @@ const Form = () => {
         {
             mode: 'bicycle',
             icon: <DirectionsBikeOutlined />,
-            errormessage: 'Enter locations under 300kms apart to cycle.'
         }
     ]
+
+    const addWaypoint = () => {
+        setAddStop(true);
+        dispatch(updateWaypoints(''));
+        console.log(waypoints);
+    }
+
+    const removeWaypoint = (index) => {
+        dispatch(deleteWaypoints(index));
+    }
 
     return (
         <>
@@ -66,10 +77,19 @@ const Form = () => {
                                     <label htmlFor="origin">Origin</label>
                                     <Autocomplete placeholder={'Enter Origin'} reducer={updateOrigin} />
                                 </div>
-                                {/* <div className="stopField">
-                                    <label htmlFor="stop">Stop</label>
-                                    <Autocomplete placeholder={'Enter Stop'} reducer={} />
-                                </div> */}
+
+                                {waypoints.map((waypoint, index) => (
+                                    <div key={index}>
+                                        <Autocomplete placeholder={`Enter Stop ${index + 1}`} reducer={updateWaypoints} index={index} />
+
+                                        <Button onClick={() => removeWaypoint(index)} variant="outlined" style={{ fontSize: '0.8rem', color: '#1B31A8', border: '2px solid #1B31A8' }} >Remove</Button>
+                                    </div>
+                                ))}
+                                <div className="addStopButton">
+                                    <Button variant="outlined" onClick={addWaypoint} style={{ fontSize: '0.8rem', color: '#1B31A8', border: '2px solid #1B31A8' }}>Add another stop</Button>
+
+                                </div>
+
                                 <div className="destinationField">
                                     <label htmlFor="destination">Destination</label>
                                     <Autocomplete placeholder={"Enter Destination"} reducer={updateDestination} />
@@ -100,9 +120,9 @@ const Form = () => {
                                 </div>
                             </div>
                             <div className="formDownDescription">
-                                <Typography variant="body1">
+                                {distance && <Typography variant="body1">
                                     The distance between <b>{origin.formatted}</b> and <b>{destination.formatted}</b> via the seleted route is <b>{distance} kms</b>. The estimated time of arrival by <b>{transitMode}</b> is <b>{eta} hours</b>.
-                                </Typography>
+                                </Typography>}
                             </div>
                         </div>
                     </div>
