@@ -2,10 +2,9 @@ import { Button, Typography } from "@mui/material";
 import Map from "./Map";
 import Autocomplete from "./Autocomplete";
 import { deleteWaypoints, updateDestination, updateInitiated, updateOrigin, updateTransitMode, updateWaypoints } from "../redux/locationSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DirectionsBikeOutlined, DirectionsWalkOutlined, DriveEtaOutlined, TwoWheelerOutlined } from "@mui/icons-material";
-import { icon } from "leaflet";
 
 const apikey = import.meta.env.VITE_API_KEY;
 
@@ -58,6 +57,10 @@ const Form = () => {
         dispatch(deleteWaypoints(index));
     }
 
+    const waypointString = waypoints.length > 0
+        ? waypoints.map(way => way.formatted).join(' & ')
+        : 'the selected route';
+
     return (
         <>
             <div className="formOuter">
@@ -73,24 +76,25 @@ const Form = () => {
                     <div className="formInner">
                         <div className="formUp">
                             <div className="formLeft">
-                                <div className="originField">
+                                <div className="originField" style={{ marginBottom: '20px' }}>
                                     <label htmlFor="origin">Origin</label>
                                     <Autocomplete placeholder={'Enter Origin'} reducer={updateOrigin} />
                                 </div>
 
                                 {waypoints.map((waypoint, index) => (
-                                    <div key={index}>
+                                    <div key={index} className="stopField">
+                                        <label htmlFor="stops">Stop {index + 1}</label>
                                         <Autocomplete placeholder={`Enter Stop ${index + 1}`} reducer={updateWaypoints} index={index} />
 
-                                        <Button onClick={() => removeWaypoint(index)} variant="outlined" style={{ fontSize: '0.8rem', color: '#1B31A8', border: '2px solid #1B31A8' }} >Remove</Button>
+                                        <Button onClick={() => removeWaypoint(index)} variant="outlined" size="small" style={{ fontSize: '0.8rem', color: 'red', border: '2px solid red', marginBottom: '20px', marginTop: '5px' }} >Remove</Button>
                                     </div>
                                 ))}
                                 <div className="addStopButton">
-                                    <Button variant="outlined" onClick={addWaypoint} style={{ fontSize: '0.8rem', color: '#1B31A8', border: '2px solid #1B31A8' }}>Add another stop</Button>
+                                    <Button variant="outlined" size="small" onClick={addWaypoint} style={{ fontSize: '0.8rem', color: '#109d0b', border: '2px solid #109d0b' }}>Add another stop</Button>
 
                                 </div>
 
-                                <div className="destinationField">
+                                <div className="destinationField" style={{ marginBottom: '20px' }}>
                                     <label htmlFor="destination">Destination</label>
                                     <Autocomplete placeholder={"Enter Destination"} reducer={updateDestination} />
                                 </div>
@@ -121,7 +125,7 @@ const Form = () => {
                             </div>
                             <div className="formDownDescription">
                                 {distance && <Typography variant="body1">
-                                    The distance between <b>{origin.formatted}</b> and <b>{destination.formatted}</b> via the seleted route is <b>{distance} kms</b>. The estimated time of arrival by <b>{transitMode}</b> is <b>{eta} hours</b>.
+                                    The distance between <b>{origin.formatted}</b> and <b>{destination.formatted}</b> via {waypoints.length > 0 ? <b>{waypointString}</b> : waypointString} is <b>{distance} kms</b>. The estimated time of arrival by <b>{transitMode}</b> is <b>{Math.floor(eta)} hours {Math.round((eta.toString().split('.')[1]) * 0.6)} mins</b>.
                                 </Typography>}
                             </div>
                         </div>

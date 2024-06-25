@@ -8,7 +8,6 @@ const Autocomplete = ({ placeholder, reducer, index }) => {
     const dispatch = useDispatch();
 
     const waypoints = useSelector((state) => state.location.waypoints);
-    const stopPoints = useSelector(state => state.location.stopPoints);
 
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
