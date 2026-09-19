@@ -10,8 +10,7 @@ import iconO from '../assets/origin-icon.png';
 import iconD from '../assets/destination-icon.png';
 import iconS from '../assets/stop-icon.png';
 import { buildStops, isValidLocation } from "../utils/geo";
-
-const apikey = import.meta.env.VITE_API_KEY || 'd7d862e3a8b446009c7d46ace01d67f0';
+import { GEOAPIFY_API_KEY } from "../utils/config";
 
 const TRANSIT_MODE_API = {
     drive: 'drive',
@@ -128,8 +127,8 @@ const Map = () => {
                     {
                         params: {
                             waypoints: waypointsParam,
-                            mode: TRANSIT_MODE_API[transitMode] ?? 'car',
-                            apiKey: apikey,
+                            mode: TRANSIT_MODE_API[transitMode] ?? 'drive',
+                            apiKey: GEOAPIFY_API_KEY,
                         },
                     }
                 );

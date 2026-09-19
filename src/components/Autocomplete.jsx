@@ -4,8 +4,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateIsInput } from '../redux/locationSlice';
-
-const apikey = import.meta.env.VITE_API_KEY || 'd7d862e3a8b446009c7d46ace01d67f0';
+import { GEOAPIFY_API_KEY } from '../utils/config';
 
 const Autocomplete = ({ placeholder, value = '', onSelect }) => {
     const dispatch = useDispatch();
@@ -54,7 +53,7 @@ const Autocomplete = ({ placeholder, value = '', onSelect }) => {
                     params: {
                         text,
                         limit: 6,
-                        apiKey: apikey,
+                        apiKey: GEOAPIFY_API_KEY,
                     },
                 }
             );

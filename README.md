@@ -21,3 +21,21 @@ A simple one-page web app using React.js that allows users to input an origin an
 - Axios (for API requests)
 - Redux Toolkit
 
+## Environment Variables
+
+Create a `.env` file in the project root (copy `.env.example`) and set:
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `VITE_API_KEY` | Yes | Geoapify API key used for routing and places autocomplete. Get one at https://myprojects.geoapify.com. |
+
+```bash
+cp .env.example .env
+# then edit .env and paste your key
+```
+
+`.env` is gitignored; never commit real keys. Note that Vite inlines `VITE_*`
+variables into the client bundle, so the key is still visible to end users at
+runtime — restrict it by domain in the Geoapify dashboard.
+
+
